@@ -4,13 +4,15 @@
     <meta charset="utf-8">
     <title>Lab2 - VR application</title>
     <meta name="description" content="Basic example for Point Cloud component."></meta>
-    <script src="https://aframe.io/releases/0.9.1/aframe.min.js"></script>
-
+    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+    <script src="js/aframe-pointcloud-component.js"></script>
     <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
-
     <script>
-        AFRAME.registerComponent('cursor-listener', {
+        let supaBox;
+        AFRAME.registerComponent('supa-box', {
           init: function () {
+            console.log('ar', arguments);
+            supaBox = document.getElementById('box');
             var lastIndex = -1;
             var COLORS = ['red', 'green', 'blue'];
             this.el.addEventListener('click', function (evt) {
@@ -21,157 +23,74 @@
           } 
         });
 
+        function left(){
+          position = supaBox.getAttribute('position');
+          position.x--;
+          supaBox.setAttribute('position', position);
+        }
+        function right(){
+          position = supaBox.getAttribute('position');
+          position.x++;
+          supaBox.setAttribute('position', position);
+        }
+        function up(){
+          position = supaBox.getAttribute('position');
+          position.y++;
+          supaBox.setAttribute('position', position);
+        }
+        function down(){
+          position = supaBox.getAttribute('position');
+          position.y--;
+          supaBox.setAttribute('position', position);
+        }
+
     </script>
   </head>
   <body>
     <a-scene>
-      <a-assets>
-        <a-mixin id="cube" geometry="primitive: box"></a-mixin>
-        <a-mixin id="cube-hovered" material="color: magenta"></a-mixin>
-        <a-mixin id="cube-selected" material="color: cyan"></a-mixin>
-        <a-mixin id="red" material="color: red"></a-mixin>
-        <a-mixin id="green" material="color: green"></a-mixin>
-        <a-mixin id="blue" material="color: blue"></a-mixin>
-        <a-mixin id="yellow" material="color: yellow"></a-mixin>
-        <a-mixin id="sphere" geometry="primitive: sphere"></a-mixin>
-      </a-assets>
-
-
       <a-gui-flex-container
-			flex-direction="column" justify-content="center" align-items="normal" component-padding="0.1" 
-			opacity="0.7" width="0.75" height="3"
-			position="0.75 1.75 -5" rotation="0 0 0"
-		>
-			<a-gui-button 
-				width="0.75" height="0.75"
-				onclick="clickOne"
-				value="1"
-				font-family="Arial"
-			>
-			</a-gui-button>
-			<a-gui-button 
-				width="0.75" height="0.75"
-				onclick="clickFour"
-				value="4"
-				font-family="Arial"
-			>
-			</a-gui-button>
-			<a-gui-button 
-				width="0.75" height="0.75"
-				onclick="clickSeven"
-				value="7"
-				font-family="Arial"
-			>
-			</a-gui-button>
-			<a-gui-icon-button
-				height="0.75"
-				onclick="clear"
-				icon="android-delete"
-			>
-			</a-gui-icon-button>
-		</a-gui-flex-container>
-
-		<a-gui-flex-container
-			flex-direction="column" justify-content="center" align-items="normal" component-padding="0.1" 
-			opacity="0.7" width="0.75" height="3"
-			position="1.5 1.75 -5" rotation="0 0 0"
-		>
-			<a-gui-button 
-				width="0.75" height="0.75"
-				onclick="clickTwo"
-				value="2"
-				font-family="Arial"
-			>
-			</a-gui-button>
-			<a-gui-button 
-				width="0.75" height="0.75"
-				onclick="clickFive"
-				value="5"
-				font-family="Arial"
-			>
-			</a-gui-button>
-			<a-gui-button 
-				width="0.75" height="0.75"
-				onclick="clickEight"
-				value="8"
-				font-family="Arial"
-			>
-			</a-gui-button>
-			<a-gui-button 
-				width="0.75" height="0.75"
-				onclick="clickZero"
-				value="0"
-				font-family="Arial"
-			>
-			</a-gui-button>
-		</a-gui-flex-container>
-
-		<a-gui-flex-container
-			flex-direction="column" justify-content="center" align-items="normal" component-padding="0.1" 
-			opacity="0.7" width="0.75" height="3"
-			position="2.25 1.75 -5" rotation="0 0 0"
-		>
-			<a-gui-button 
-				width="0.75" height="0.75"
-				onclick="clickThree"
-				value="3"
-				font-family="Arial"
-			>
-			</a-gui-button>
-			<a-gui-button 
-				width="0.75" height="0.75"
-				onclick="clickSix"
-				value="6"
-				font-family="Arial"
-			>
-			</a-gui-button>
-			<a-gui-button 
-				width="0.75" height="0.75"
-				onclick="clickNine"
-				value="9"
-				font-family="Arial"
-			>
-			</a-gui-button>
-			<a-gui-icon-button
-				height="0.75"
-				onclick="call"
-				icon="android-call"
-			>
-			</a-gui-icon-button>
-		</a-gui-flex-container>
-
-
-      <a-gui-flex-container flex-direction="column" justify-content="center" align-items="normal" component-padding="0.1"
-        opacity="0.7" width="4.5" height="4.5" position="-2 -1 -7" rotation="0 0 0" >
-
-        <a-gui-button width="2.5" height="0.75"   value="Rotate" font-family="Arial"
-          margin="0 0 0.05 0">
+        flex-direction="column" justify-content="center" align-items="normal" component-padding="0.1" 
+        opacity="0.7" width="0.75" height="1"
+        position="0.75 1.75 -5" rotation="0 0 0"
+      >
+        <a-gui-button 
+          width="0.75" height="0.75"
+          onclick="up"
+          value="^"
+          font-family="Arial"
+        >
         </a-gui-button>
-        <a-gui-button width="3.5" height="0.75"   value="Zoom in (bigger)" font-family="Arial"
-          margin="0 0 0.05 0">
+        <a-gui-button 
+          width="0.75" height="0.75"
+          onclick="down"
+          value="v"
+          font-family="Arial"
+        >
         </a-gui-button>
-        <a-gui-button width="3.5" height="0.75"   value="Zoom out (smaller)" font-family="Arial"
-          margin="0 0 0.05 0">
+      </a-gui-flex-container>
+      <a-gui-flex-container
+      flex-direction="column" justify-content="center" align-items="normal" component-padding="0.1" 
+      opacity="0.7" width="0.75" height="1"
+      position="1.5 1.75 -5" rotation="0 0 0"
+      >
+        <a-gui-button 
+          width="0.75" height="0.75"
+          onclick="right"
+          value=">"
+          font-family="Arial"
+        >
         </a-gui-button>
-        <a-gui-button width="2.5" height="0.75"   value="Move left" font-family="Arial"
-          margin="0 0 0.05 0">
+        <a-gui-button 
+          width="0.75" height="0.75"
+          onclick="left"
+          value="<"
+          font-family="Arial"
+        >
         </a-gui-button>
-        <a-gui-button width="2.5" height="0.75"   value="Move right" font-family="Arial"
-          margin="0 0 0.05 0">
-
-          
-    </a-gui-button>
-
-    </a-gui-flex-container>
-
+      </a-gui-flex-container>
       <a-entity id="camera" camera look-controls cursor="rayOrigin: mouse" wasd-controls="acceleration: 500"></a-entity>
-
-      <a-entity id="box" cursor-listener position="5 -7 -15" rotation="0 0 0"  geometry="primitive: box; height: 4; width: 4; depth: 4;" material="color: blue">
-          <a-animation begin="click" attribute="scale" from=".5 .5 .5"
-          to="0 0 0" dur="2000" fill="both"></a-animation>
-      </a-entity>
-
-   
+      <a-entity id="box" supa-box cursor-listener position="5 -7 -15" rotation="0 0 0"  geometry="primitive: box; height: 4; width: 4; depth: 4;" material="color: blue"></a-entity>
+      <a-sky src="https://i.imgur.com/s7gBWif.jpg" rotation="0 0 0"></a-sky>
     </a-scene>
   </body>
 </html>
